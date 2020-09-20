@@ -1804,14 +1804,15 @@ static int efi_snp_probe ( struct net_device *netdev ) {
 	}
 
 	/* Install HII */
-	if ( ( rc = efi_snp_hii_install ( snpdev ) ) != 0 ) {
-		DBGC ( snpdev, "SNPDEV %p could not install HII: %s\n",
-		       snpdev, strerror ( rc ) );
-		/* HII fails on several platforms.  It's
-		 * non-essential, so treat this as a non-fatal
-		 * error.
-		 */
-	}
+	// TODO(ljfranklin): this causes odroid boot to freeze.
+	// if ( ( rc = efi_snp_hii_install ( snpdev ) ) != 0 ) {
+	// 	DBGC ( snpdev, "SNPDEV %p could not install HII: %s\n",
+	// 	       snpdev, strerror ( rc ) );
+	// 	/* HII fails on several platforms.  It's
+	// 	 * non-essential, so treat this as a non-fatal
+	// 	 * error.
+	// 	 */
+	// }
 
 	/* Add to list of SNP devices */
 	list_add ( &snpdev->list, &efi_snp_devices );

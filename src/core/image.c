@@ -187,7 +187,11 @@ static int image_probe ( struct image *image ) {
 
 	/* Try each type in turn */
 	for_each_table_entry ( type, IMAGE_TYPES ) {
-		if ( ( rc = type->probe ( image ) ) == 0 ) {
+		// TODO(ljfranklin): calling probe on EFI type freezes odroid boot.
+		if (strcmp("EFI", type->name) == 0) {
+			continue;
+		}
+		if (( rc = type->probe ( image ) ) == 0 ) {
 			image->type = type;
 			DBGC ( image, "IMAGE %s is %s\n",
 			       image->name, type->name );
